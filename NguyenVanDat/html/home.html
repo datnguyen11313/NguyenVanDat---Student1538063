@@ -1,0 +1,102 @@
+<?php
+include("../sql/connect.php");
+
+
+// Xử lý xóa Sách
+
+
+// Xử lý xóa Sách
+
+
+
+
+
+
+
+$books = showAll();
+$booklist = '';
+foreach ($books as $item) {
+  
+  $id = $item['id'] ?? '';
+  $title = $item['title'] ?? 'N/A';
+  $author_name = $item['author_name'] ?? 'N/A';
+  $category_name = $item['category_name'] ?? 'N/A';
+  $publisher = $item['publisher'] ?? 'N/A';
+  $publish_year = $item['publish_year'] ?? 'N/A';
+
+
+    $booklist .= '<tr>
+                    <td>'. $title .'</td>
+                    <td>'. $author_name .'</td>
+                    <td>'. $category_name .'</td>
+                    <td>'. $publisher .'</td>
+                    <td>'. $publish_year .'</td>
+                    <td><a href="">Sửa</a></td>
+                    <td><a href="">Xóa</a></td>
+                     
+                  </tr>';
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <title>ThiGiuKy</title>
+  <style>
+    #addBookForm {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-3">
+    <h2>Tìm Kiếm</h2>
+    <form action="/action_page.php" method="GET">
+      <div class="mb-3 mt-3">
+        <label for="search">Tìm Kiếm:</label>
+        <input type="text" class="form-control" id="search" placeholder="Nhập" name="search" />
+      </div>
+      <button type="submit" class="btn btn-primary">Tìm</button>
+    </form>
+  </div>
+  <hr />
+  <form action="home.php" method="post">
+    <div class="container mt-3">
+      <h2>Danh Sách hiển thị</h2>
+      <div class="border-2">
+        <button type="submit" name="orderby" class="btn btn-secondary">Sắp Xếp</button>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tên Sách</th>
+            <th>Tác giả</th>
+            <th>Thể loại</th>
+            <th>Nhà xuất bản</th>
+            <th>Năm xuất bảng</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody id="bookList">
+          <?=$booklist?>
+        </tbody>
+      </table>
+      <button type="button" id="addBookButton" class="btn btn-success">Thêm sách</button>
+     
+    </div>
+  </form>
+
+  <?php include('addbook_form.php'); ?>
+
+  <script>
+    document.getElementById('addBookButton').addEventListener('click', function() {
+      document.getElementById('addBookForm').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
